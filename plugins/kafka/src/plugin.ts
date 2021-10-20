@@ -24,8 +24,7 @@ import {
 } from '@backstage/core-plugin-api';
 
 export const rootCatalogKafkaRouteRef = createRouteRef({
-  path: '*',
-  title: 'Kafka',
+  id: 'kafka',
 });
 
 export const kafkaPlugin = createPlugin({

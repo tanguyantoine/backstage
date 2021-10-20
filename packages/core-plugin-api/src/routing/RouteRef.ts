@@ -42,8 +42,11 @@ export class RouteRefImpl<Params extends AnyParams>
     private readonly id: string,
     readonly params: ParamKeys<Params>,
     private readonly config: {
+      /** @deprecated */
       path?: string;
+      /** @deprecated */
       icon?: OldIconComponent;
+      /** @deprecated */
       title?: string;
     },
   ) {
@@ -71,11 +74,6 @@ export class RouteRefImpl<Params extends AnyParams>
 
   get icon() {
     return this.config.icon;
-  }
-
-  /** @deprecated */
-  get path() {
-    return this.config.path ?? '';
   }
 
   get title() {
