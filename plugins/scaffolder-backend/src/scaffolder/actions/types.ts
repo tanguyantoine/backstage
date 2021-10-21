@@ -44,6 +44,8 @@ export type ActionContext<Input extends InputBase> = {
    * Creates a temporary directory for use by the action, which is then cleaned up automatically.
    */
   createTemporaryDirectory(): Promise<string>;
+
+  metadata?: { name: string };
 };
 
 export type TemplateAction<Input extends InputBase> = {
