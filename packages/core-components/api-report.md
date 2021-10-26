@@ -5,20 +5,25 @@
 ```ts
 /// <reference types="react" />
 
+import { AnyApiFactory } from '@backstage/core-plugin-api';
 import { ApiRef } from '@backstage/core-plugin-api';
-import { AppComponents } from '@backstage/core-plugin-api';
+import { AppConfig } from '@backstage/config';
+import { AppTheme } from '@backstage/core-plugin-api';
 import { BackstageIdentityApi } from '@backstage/core-plugin-api';
+import { BackstagePlugin } from '@backstage/core-plugin-api';
 import { BackstageTheme } from '@backstage/theme';
 import { ButtonProps as ButtonProps_2 } from '@material-ui/core/Button';
 import { CardHeaderProps } from '@material-ui/core/CardHeader';
 import { Column } from '@material-table/core';
 import { ComponentClass } from 'react';
 import { ComponentProps } from 'react';
+import { ComponentType } from 'react';
 import { Context } from 'react';
 import { default as CSS_2 } from 'csstype';
 import { CSSProperties } from 'react';
 import { ElementType } from 'react';
 import { ErrorInfo } from 'react';
+import { ExternalRouteRef } from '@backstage/core-plugin-api';
 import { IconComponent } from '@backstage/core-plugin-api';
 import { LinearProgressProps } from '@material-ui/core/LinearProgress';
 import { LinkProps as LinkProps_2 } from '@material-ui/core/Link';
@@ -27,12 +32,15 @@ import MaterialBreadcrumbs from '@material-ui/core/Breadcrumbs';
 import { MaterialTableProps } from '@material-table/core';
 import { NavLinkProps } from 'react-router-dom';
 import { Overrides } from '@material-ui/core/styles/overrides';
+import { PluginOutput } from '@backstage/core-plugin-api';
+import { ProfileInfo } from '@backstage/core-plugin-api';
 import { ProfileInfoApi } from '@backstage/core-plugin-api';
 import { PropsWithChildren } from 'react';
 import { default as React_2 } from 'react';
 import * as React_3 from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
+import { RouteRef } from '@backstage/core-plugin-api';
 import { SessionApi } from '@backstage/core-plugin-api';
 import { SignInPageProps } from '@backstage/core-plugin-api';
 import { SparklinesLineProps } from 'react-sparklines';
@@ -40,6 +48,7 @@ import { SparklinesProps } from 'react-sparklines';
 import { StyledComponentProps } from '@material-ui/core/styles';
 import { StyleRules } from '@material-ui/styles';
 import { StyleRules as StyleRules_2 } from '@material-ui/core/styles/withStyles';
+import { SubRouteRef } from '@backstage/core-plugin-api';
 import { TabProps } from '@material-ui/core/Tab';
 import { TextTruncateProps } from 'react-text-truncate';
 import { Theme } from '@material-ui/core/styles';
@@ -198,9 +207,6 @@ export type CustomProviderClassKey = 'form' | 'button';
 
 // @public (undocumented)
 export function DashboardIcon(props: IconComponentProps): JSX.Element;
-
-// @public
-export function defaultAppComponents(): Omit<AppComponents, 'Router'>;
 
 // @public
 type DependencyEdge<T = {}> = T & {
@@ -2301,6 +2307,12 @@ export type WarningPanelClassKey =
   | 'summaryText'
   | 'message'
   | 'details';
+
+// Warning: (ae-forgotten-export) The symbol "DefaultAppOptions" needs to be exported by the entry point index.d.ts
+// Warning: (ae-forgotten-export) The symbol "AppOptions" needs to be exported by the entry point index.d.ts
+//
+// @public
+export function withDefaults(options?: DefaultAppOptions): AppOptions;
 
 // Warnings were encountered during analysis:
 //
