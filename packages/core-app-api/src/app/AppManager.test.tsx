@@ -37,7 +37,7 @@ import {
   createRoutableExtension,
   analyticsApiRef,
 } from '@backstage/core-plugin-api';
-import { generateBoundRoutes, PrivateAppImpl } from './App';
+import { generateBoundRoutes, AppManager } from './AppManager';
 import { AppComponents } from './types';
 
 describe('generateBoundRoutes', () => {
@@ -187,7 +187,7 @@ describe('Integration Test', () => {
   };
 
   it('runs happy paths', async () => {
-    const app = new PrivateAppImpl({
+    const app = new AppManager({
       apis: [noOpAnalyticsApi],
       defaultApis: [],
       themes: [
@@ -241,7 +241,7 @@ describe('Integration Test', () => {
   });
 
   it('runs happy paths without optional routes', async () => {
-    const app = new PrivateAppImpl({
+    const app = new AppManager({
       apis: [noOpAnalyticsApi],
       defaultApis: [],
       themes: [
@@ -298,7 +298,7 @@ describe('Integration Test', () => {
       }),
     ];
 
-    const app = new PrivateAppImpl({
+    const app = new AppManager({
       apis,
       defaultApis: [],
       themes: [
@@ -348,7 +348,7 @@ describe('Integration Test', () => {
   it('should track route changes via analytics api', async () => {
     const mockAnalyticsApi = new MockAnalyticsApi();
     const apis = [createApiFactory(analyticsApiRef, mockAnalyticsApi)];
-    const app = new PrivateAppImpl({
+    const app = new AppManager({
       apis,
       defaultApis: [],
       themes: [
@@ -408,7 +408,7 @@ describe('Integration Test', () => {
   });
 
   it('should throw some error when the route has duplicate params', () => {
-    const app = new PrivateAppImpl({
+    const app = new AppManager({
       apis: [],
       defaultApis: [],
       themes: [
