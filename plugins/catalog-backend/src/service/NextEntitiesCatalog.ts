@@ -23,6 +23,8 @@ import {
   EntitiesResponse,
   EntityAncestryResponse,
   EntityPagination,
+  EntitiesSearchFilter,
+  EntitiesValuesFilter,
 } from '../catalog/types';
 import {
   DbFinalEntitiesRow,
@@ -73,6 +75,12 @@ function stringifyPagination(input: { limit: number; offset: number }) {
   return base64;
 }
 
+function isValuesFilter(
+  filter: EntitiesSearchFilter,
+): filter is EntitiesValuesFilter {
+  return filter.hasOwnProperty('values');
+}
+
 export class NextEntitiesCatalog implements EntitiesCatalog {
   constructor(private readonly database: Knex) {}
 
@@ -83,34 +91,29 @@ export class NextEntitiesCatalog implements EntitiesCatalog {
 
     for (const singleFilter of request?.filter?.anyOf ?? []) {
       entitiesQuery = entitiesQuery.orWhere(function singleFilterFn() {
-        for (const {
-          key,
-          matchValueIn,
-          matchValueExists,
-        } of singleFilter.allOf) {
+        for (const filter of singleFilter.allOf) {
           // NOTE(freben): This used to be a set of OUTER JOIN, which may seem to
           // make a lot of sense. However, it had abysmal performance on sqlite
           // when datasets grew large, so we're using IN instead.
           const matchQuery = db<DbSearchRow>('search')
             .select('entity_id')
-            .where(function keyFilter() {
-              this.andWhere({ key: key.toLowerCase() });
-              if (matchValueExists !== false && matchValueIn) {
-                if (matchValueIn.length === 1) {
-                  this.andWhere({ value: matchValueIn[0].toLowerCase() });
-                } else if (matchValueIn.length > 1) {
-                  this.andWhere(
+            .where({ key: filter.key.toLowerCase() })
+            .andWhere(function () {
+              if (isValuesFilter(filter)) {
+                if (filter.values.length === 1) {
+                  this.where({ value: filter.values[0].toLowerCase() });
+                } else if (filter.values.length > 1) {
+                  this.where(
                     'value',
                     'in',
-                    matchValueIn.map(v => v.toLowerCase()),
+                    filter.values.map(v => v.toLowerCase()),
                   );
                 }
               }
             });
-          // Explicitly evaluate matchValueExists as a boolean since it may be undefined
           this.andWhere(
             'entity_id',
-            matchValueExists === false ? 'not in' : 'in',
+            filter.negate ? 'not in' : 'in',
             matchQuery,
           );
         }
