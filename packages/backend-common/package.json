@@ -81,6 +81,7 @@
   "devDependencies": {
     "@backstage/backend-test-utils": "^0.1.8",
     "@backstage/cli": "^0.8.1",
+    "@backstage/test-utils": "^0.1.20",
     "@types/archiver": "^5.1.0",
     "@types/compression": "^1.7.0",
     "@types/concat-stream": "^1.6.0",
