@@ -118,7 +118,6 @@
   },
   "devDependencies": {
     "@backstage/backend-common": "^0.9.8",
-    "@backstage/config": "^0.1.11",
     "@backstage/core-components": "^0.7.2",
     "@backstage/core-plugin-api": "^0.1.12",
     "@backstage/core-app-api": "^0.1.19",
