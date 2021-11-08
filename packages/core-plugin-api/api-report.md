@@ -584,14 +584,12 @@ export enum FeatureFlagState {
   None = 0,
 }
 
-// Warning: (ae-missing-release-tag) "FetchApi" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
+// @public
 export type FetchApi = typeof fetch_2;
 
 // Warning: (ae-missing-release-tag) "fetchApiRef" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
-// @public (undocumented)
+// @public
 export const fetchApiRef: ApiRef<FetchApi>;
 
 // Warning: (ae-missing-release-tag) "getComponentData" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)

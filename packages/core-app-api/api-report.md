@@ -27,6 +27,7 @@ import { BackstagePlugin } from '@backstage/core-plugin-api';
 import { bitbucketAuthApiRef } from '@backstage/core-plugin-api';
 import { ComponentType } from 'react';
 import { ConfigReader } from '@backstage/config';
+import crossFetch from 'cross-fetch';
 import { DiscoveryApi } from '@backstage/core-plugin-api';
 import { ErrorApi } from '@backstage/core-plugin-api';
 import { ErrorContext } from '@backstage/core-plugin-api';
@@ -34,7 +35,6 @@ import { ExternalRouteRef } from '@backstage/core-plugin-api';
 import { FeatureFlag } from '@backstage/core-plugin-api';
 import { FeatureFlagsApi } from '@backstage/core-plugin-api';
 import { FeatureFlagsSaveOptions } from '@backstage/core-plugin-api';
-import { FetchApi } from '@backstage/core-plugin-api';
 import { gitlabAuthApiRef } from '@backstage/core-plugin-api';
 import { googleAuthApiRef } from '@backstage/core-plugin-api';
 import { IconComponent } from '@backstage/core-plugin-api';
@@ -344,6 +344,24 @@ export type FeatureFlaggedProps = {
 );
 
 // @public
+export class FetchApiBuilder {
+  // (undocumented)
+  build(): FetchFunction;
+  // (undocumented)
+  static create(): FetchApiBuilder;
+  // (undocumented)
+  with(middleware: FetchMiddleware): FetchApiBuilder;
+}
+
+// @public
+export type FetchFunction = typeof crossFetch;
+
+// @public
+export interface FetchMiddleware {
+  apply(next: FetchFunction): FetchFunction;
+}
+
+// @public
 export const FlatRoutes: (props: FlatRoutesProps) => JSX.Element | null;
 
 // @public
@@ -416,16 +434,14 @@ export class GoogleAuth {
   }: OAuthApiCreateOptions): typeof googleAuthApiRef.T;
 }
 
-// Warning: (ae-missing-release-tag) "IdentityAwareFetchApi" is exported by the package, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export class IdentityAwareFetchApi {
-  // (undocumented)
-  get fetch(): FetchApi;
-  // (undocumented)
-  onSignIn(result: { getIdToken?: () => Promise<string> }): void;
-  // (undocumented)
-  onSignOut(): void;
+// @public
+export class IdentityAwareFetchMiddleware implements FetchMiddleware {
+  apply(next: FetchFunction): FetchFunction;
+  setHeaderName(name: string): IdentityAwareFetchMiddleware;
+  setSignedIn(
+    tokenFunction: (() => Promise<string | undefined>) | undefined,
+  ): void;
+  setSignedOut(): void;
 }
 
 // @public
