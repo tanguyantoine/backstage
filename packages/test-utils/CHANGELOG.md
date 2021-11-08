@@ -1,5 +1,14 @@
 # @backstage/test-utils
 
+## 0.1.21
+
+### Patch Changes
+
+- 71fd5cd735: Update Keyboard deprecation with a link to the recommended successor
+- Updated dependencies
+  - @backstage/theme@0.2.13
+  - @backstage/core-app-api@0.1.20
+
 ## 0.1.20
 
 ### Patch Changes

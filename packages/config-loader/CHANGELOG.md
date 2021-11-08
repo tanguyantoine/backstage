@@ -1,5 +1,11 @@
 # @backstage/config-loader
 
+## 0.7.2
+
+### Patch Changes
+
+- 0611f3b3e2: Reading app config from a remote server
+
 ## 0.7.1
 
 ### Patch Changes

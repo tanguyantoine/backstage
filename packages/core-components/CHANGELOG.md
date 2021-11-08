@@ -1,5 +1,15 @@
 # @backstage/core-components
 
+## 0.7.3
+
+### Patch Changes
+
+- c11a37710a: Added a warning variant to `DismissableBanner` component. If you are using a
+  custom theme, you will need to add the optional `palette.banner.warning` color,
+  otherwise this variant will fall back to the `palette.banner.error` color.
+- Updated dependencies
+  - @backstage/theme@0.2.13
+
 ## 0.7.2
 
 ### Patch Changes
