@@ -22,9 +22,13 @@ import { Entity, EntityRelationSpec } from '@backstage/catalog-model';
  * Any (at least one) of the outer sets must match, within which all of the
  * individual filters must match.
  */
-export type EntityFilter = {
-  anyOf: { allOf: (EntitiesSearchFilter | EntityFilter)[] }[];
-};
+export type EntityFilter =
+  | AndEntityFilter
+  | OrEntityFilter
+  | EntitiesSearchFilter;
+
+export type AndEntityFilter = { allOf: EntityFilter[] };
+export type OrEntityFilter = { anyOf: EntityFilter[] };
 
 /**
  * A pagination rule for entities.
